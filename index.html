@@ -52,7 +52,17 @@
                 // Render the current patient's medications (or any error)
                 .then(
                     function(meds) {
-                        document.getElementById("meds").innerText = JSON.stringify(meds, null, 4);
+						var mdiv = document.getElementById("meds");
+						mdiv.innerHTML = "";
+						var ul = document.createElement("ul");
+						mdiv.appendChild(ul);
+						for (var m in meds) {
+							var li = document.createElement("li");
+							li.innerHTML = meds[m].resource.medicationCodeableConcept.text;
+							console.log(meds[m].resource.medicationCodeableConcept.text);
+							ul.appendChild(li);
+						}
+//                        document.getElementById("meds").innerText = JSON.stringify(meds, null, 4);
                     },
                     function(error) {
                         document.getElementById("meds").innerText = error.stack;
